@@ -1,3 +1,55 @@
+# === 랜딩(표지) 화면 ===
+import streamlit as st
+from pathlib import Path
+
+def render_cover():
+    st.set_page_config(page_title="DRT 시뮬레이터", layout="wide")
+
+    # 간단 스타일
+    st.markdown("""
+        <style>
+        .team-box {border:1.5px solid #cfcfcf; border-radius:12px; padding:16px 22px;}
+        .subtitle {color:#6b7280; margin-top:-10px;}
+        .start-btn button {font-weight:700;}
+        .foot {color:#9ca3af; font-size:0.9rem;}
+        </style>
+    """, unsafe_allow_html=True)
+
+    col1, col2 = st.columns([1,1])
+
+    with col1:
+        st.markdown("## 🚌 **기존버스 시뮬레이션 및 시각화**")
+        st.markdown("<div class='subtitle'>팀원 소개</div>", unsafe_allow_html=True)
+        st.markdown("""
+        <div class="team-box">
+        <ul>
+            <li>한승훈</li>
+            <li>한현성</li>
+            <li>송도훈</li>
+            <li>최승환</li>
+            <li>이현규</li>
+        </ul>
+        </div>
+        """, unsafe_allow_html=True)
+
+        st.write("")
+        st.write("아래 버튼을 클릭하면 시뮬레이션 및 시각화 기능으로 이동합니다.")
+        start = st.container()
+        with start:
+            if st.button("시작하기 ▶", use_container_width=False):
+                st.session_state["_started"] = True
+
+        st.markdown("<div class='foot'>© 2025 DRT Lab</div>", unsafe_allow_html=True)
+
+
+# ====== 여기서 랜딩을 먼저 실행 ======
+if "_started" not in st.session_state:
+    st.session_state["_started"] = False
+
+if not st.session_state["_started"]:
+    render_cover()
+    st.stop()   # 표지에서 멈추고, 버튼 누르면 다음 렌더링 때 아래 코드 실행
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
